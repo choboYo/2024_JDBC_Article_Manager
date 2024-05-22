@@ -1,4 +1,4 @@
-package com.koreaIT.JAM.Util;
+package com.koreaIT.JAM.util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
