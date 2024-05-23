@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.koreaIT.JAM.SecSql.SecSql;
 import com.koreaIT.JAM.exception.SQLErrorException;
 
 public class DBUtil {

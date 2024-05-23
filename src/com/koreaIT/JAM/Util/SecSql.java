@@ -1,4 +1,4 @@
-package com.koreaIT.JAM.SecSql;
+package com.koreaIT.JAM.util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
