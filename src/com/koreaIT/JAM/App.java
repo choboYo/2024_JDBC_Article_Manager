@@ -41,23 +41,19 @@ public class App {
 					System.out.println("명령어를 입력해주세요");
 					continue;
 				}
+				String frontWord = cmd.split(" ")[0];
+				String backWord = cmd.split(" ")[1];
 				
-				if (cmd.equals("member join")) {
-					memberController.doJoin();
-				} else if (cmd.equals("member login")) {
-					memberController.doLogin();
-				} else if (cmd.equals("article write")) {
-					articleController.doWrite();
-				} else if (cmd.equals("article list")) {
-					articleController.showList();
-				} else if (cmd.startsWith("article detail ")) {
-					articleController.showDetail(cmd);
-				} else if (cmd.startsWith("article modify ")) {
-					articleController.doModify(cmd);
-				} else if (cmd.startsWith("article delete ")) {
-					articleController.doDelete(cmd);
-				} else {
-					System.out.println("존재하지 않는 명령어 입니다");
+				switch (frontWord) {
+				case "article": 
+					articleController.doArticle(backWord, cmd);
+					break;
+				case "member":
+					memberController.doMember(backWord);
+					break;
+				default:
+					System.out.println("올바른 명령어를 사용해주세요");
+					break;
 				}
 			}
 		} catch (SQLException e) {

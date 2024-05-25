@@ -16,6 +16,21 @@ public class MemberController {
 		this.sc = sc;
 	}
 
+	public void doMember(String backWord) {
+		switch (backWord) {
+		case "join":
+			doJoin();
+			break;
+		case "login":
+			doLogin();
+			break;
+		default:
+			System.out.println("올바른 명령어를 적어주세요.");
+			break;
+		}
+	}
+	
+	
 	public void doJoin() {
 		String loginId = null;
 		String loginPw = null;
@@ -118,5 +133,7 @@ public class MemberController {
 		
 		System.out.printf("[ %s ] 회원님 환영합니다~\n", loginId);
 	}
+
+	
 
 }

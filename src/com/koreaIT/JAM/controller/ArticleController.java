@@ -17,6 +17,32 @@ public class ArticleController {
 		this.sc = sc;
 	}
 
+	public void doArticle(String backWord, String cmd) {
+		switch (backWord) {
+		case "write":
+			doWrite();
+			break;
+		case "list":
+			showList();
+			break;
+		case "detail":
+			showDetail(cmd);
+			break;
+		case "modify":
+			doModify(cmd);
+			break;
+		case "delete":
+			doDelete(cmd);
+			break;
+		default:
+			System.out.println("다시 입력해 주세요.");
+			break;
+		}
+	}
+	
+	
+	
+	
 	public void doWrite() {
 		System.out.println("== 게시물 작성 ==");
 		
@@ -118,5 +144,7 @@ public class ArticleController {
 
         System.out.printf("%d번 게시물이 삭제되었습니다\n", id);
 	}
+
+	
 
 }
