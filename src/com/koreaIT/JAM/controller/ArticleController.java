@@ -41,9 +41,13 @@ public class ArticleController {
 	}
 	
 	
-	
-	
 	public void doWrite() {
+		
+		if(MemberController.islogined == null) {
+			System.out.println("로그인 후 이용해 주세요.");
+			return;
+		}
+		
 		System.out.println("== 게시물 작성 ==");
 		
 		System.out.printf("제목 : ");

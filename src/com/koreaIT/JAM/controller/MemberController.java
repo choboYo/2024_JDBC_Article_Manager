@@ -1,6 +1,8 @@
 package com.koreaIT.JAM.controller;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.koreaIT.JAM.dto.Member;
@@ -10,6 +12,7 @@ public class MemberController {
 
 	private MemberService memberService;
 	private Scanner sc;
+	static public Member islogined;
 	
 	public MemberController(Connection connection, Scanner sc) {
 		this.memberService = new MemberService(connection);
@@ -23,6 +26,9 @@ public class MemberController {
 			break;
 		case "login":
 			doLogin();
+			break;
+		case "logout":
+			doLogout();
 			break;
 		default:
 			System.out.println("올바른 명령어를 적어주세요.");
@@ -119,6 +125,8 @@ public class MemberController {
 			
 			Member member = memberService.getMemberByLoginId(loginId);
 			
+			
+			
 			if (member == null) {
 				System.out.printf("[ %s ] 은(는) 존재하지 않는 아이디입니다\n", loginId);
 				continue;
@@ -128,12 +136,20 @@ public class MemberController {
 				System.out.println("비밀번호가 일치하지 않습니다");
 				continue;
 			}
+			
+			islogined = member;  
+			
 			break;
 		}
+
 		
 		System.out.printf("[ %s ] 회원님 환영합니다~\n", loginId);
 	}
 
-	
-
+	public void doLogout() {
+		islogined = null;
+		
+		System.out.println("로그아웃 되었습니다.");
+		return;
+	}
 }
