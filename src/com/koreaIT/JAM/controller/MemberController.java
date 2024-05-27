@@ -1,43 +1,28 @@
 package com.koreaIT.JAM.controller;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import com.koreaIT.JAM.dto.Member;
 import com.koreaIT.JAM.service.MemberService;
+import com.koreaIT.JAM.session.Session;
 
 public class MemberController {
 
 	private MemberService memberService;
 	private Scanner sc;
-	static public Member islogined;
 	
 	public MemberController(Connection connection, Scanner sc) {
 		this.memberService = new MemberService(connection);
 		this.sc = sc;
 	}
 
-	public void doMember(String backWord) {
-		switch (backWord) {
-		case "join":
-			doJoin();
-			break;
-		case "login":
-			doLogin();
-			break;
-		case "logout":
-			doLogout();
-			break;
-		default:
-			System.out.println("올바른 명령어를 적어주세요.");
-			break;
-		}
-	}
-	
-	
 	public void doJoin() {
+		if (Session.isLogined()) {
+			System.out.println("로그아웃 후 이용해주세요");
+			return;
+		}
+		
 		String loginId = null;
 		String loginPw = null;
 		String loginPwChk = null;
@@ -101,9 +86,14 @@ public class MemberController {
 	}
 
 	public void doLogin() {
+		if (Session.isLogined()) {
+			System.out.println("로그아웃 후 이용해주세요");
+			return;
+		}
 		
 		String loginId = null;
 		String loginPw = null;
+		Member member = null;
 		
 		System.out.println("== 로그인 ==");
 		
@@ -123,9 +113,7 @@ public class MemberController {
 				continue;
 			}
 			
-			Member member = memberService.getMemberByLoginId(loginId);
-			
-			
+			member = memberService.getMemberByLoginId(loginId);
 			
 			if (member == null) {
 				System.out.printf("[ %s ] 은(는) 존재하지 않는 아이디입니다\n", loginId);
@@ -136,20 +124,21 @@ public class MemberController {
 				System.out.println("비밀번호가 일치하지 않습니다");
 				continue;
 			}
-			
-			islogined = member;  
-			
 			break;
 		}
-
+		
+		Session.login(member.id);
 		
 		System.out.printf("[ %s ] 회원님 환영합니다~\n", loginId);
 	}
-
+	
 	public void doLogout() {
-		islogined = null;
+		if (Session.isLogined() == false) {
+			System.out.println("로그인 후 이용해주세요");
+			return;
+		}
 		
-		System.out.println("로그아웃 되었습니다.");
-		return;
+		System.out.println("정상적으로 로그아웃 되었습니다");
+		Session.logout();
 	}
 }

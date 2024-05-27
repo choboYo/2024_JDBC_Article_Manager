@@ -1,29 +1,21 @@
 package com.koreaIT.JAM.session;
 
-import java.time.LocalDateTime;
-import java.util.Map;
-
 public class Session {
-	public int id;
-	public LocalDateTime regDate;
-	public LocalDateTime updateDate;
-	public String loginId;
-	public String loginPw;
-	public String name;
-
-	public String getLoginId() {
-		return loginId;
-	}
+	private static int loginedMemberId;
 	
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
+	static {
+		loginedMemberId = -1;
 	}
 
-	public String getLoginPw() {
-		return loginPw;
+	public static void login(int id) {
+		loginedMemberId = id;
 	}
 	
-	public void setLoginPw(String loginPw) {
-		this.loginPw = loginPw;
+	public static void logout() {
+		loginedMemberId = -1;
+	}
+	
+	public static boolean isLogined() {
+		return loginedMemberId != -1;
 	}
 }
